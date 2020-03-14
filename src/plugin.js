@@ -267,8 +267,11 @@ class vttThumbnailsPlugin {
   }
 
   processVtt (data) {
-    const processedVtts = []
-    const vttDefinitions = data.split(/[\r\n][\r\n]/i)
+    const processedVtts = []    
+    let vttDefinitions = data.split(/(\r\n){2}/i)
+    if (vttDefinitions.length == 1) {
+      vttDefinitions = data.split(/[\r\n]{2}/i)
+    }
     vttDefinitions.forEach((vttDef) => {
       if (vttDef.match(/([0-9]{2}:)?([0-9]{2}:)?[0-9]{2}(.[0-9]{3})?( ?--> ?)([0-9]{2}:)?([0-9]{2}:)?[0-9]{2}(.[0-9]{3})?[\r\n]{1}.*/gi)) {
         let vttDefSplit = vttDef.split(/[\r\n]/i)
